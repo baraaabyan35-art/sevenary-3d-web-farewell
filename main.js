@@ -2,28 +2,63 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 let userName = '';
+let dialogueIndex = 0;
 
 const dialogue = [
     "Time really flies. It feels like just yesterday we stepped into junior high school together.",
     "Three beautiful years filled with laughter, unforgettable stories, and shared tears are now etched into every corner of our school.",
     "Thank you so much for being an irreplaceable part of this precious journey. Every beautiful chapter eventually comes to a close.",
-    "But remember, [Name], this isn't the final goodbye. It's just the spectacular beginning of your next big adventure. Wishing you the absolute best in high school, my friend. Friends forever! ✨"
+    "But remember, [Name], this isn't the final goodbye. It's just the spectacular beginning of your next big adventure. Wishing you the absolute best in high school, my friend. Friends forever! 🌟",
 ];
 
-let dialogueIndex = 0;
+/* ========================================
+   DOM ELEMENTS
+   ======================================== */
 
-const loadingOverlay = document.getElementById('loading-overlay');
+const homeScreen = document.getElementById('home-screen');
+const formScreen = document.getElementById('form-screen');
+const experienceScreen = document.getElementById('experience-screen');
+
+const startButton = document.getElementById('start-button');
+const backButton = document.getElementById('back-button');
+const nameForm = document.getElementById('name-form');
 const nameInput = document.getElementById('nameInput');
 const enterButton = document.getElementById('enterButton');
+
 const dialogueBox = document.getElementById('dialogue-box');
 const dialogueText = document.getElementById('dialogue-text');
 const nextButton = document.getElementById('next-button');
 
-// Scene
-const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x020617);
+/* ========================================
+   SCREEN NAVIGATION
+   ======================================== */
 
-// Camera
+function showScreen(screen) {
+    homeScreen.classList.remove('active');
+    formScreen.classList.remove('active');
+    experienceScreen.classList.remove('active');
+    
+    screen.classList.add('active');
+}
+
+startButton.addEventListener('click', () => {
+    showScreen(formScreen);
+    nameInput.focus();
+});
+
+backButton.addEventListener('click', () => {
+    showScreen(homeScreen);
+    nameInput.value = '';
+    dialogueIndex = 0;
+});
+
+/* ========================================
+   THREE.JS SCENE SETUP
+   ======================================== */
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xf0f4f8);
+
 const camera = new THREE.PerspectiveCamera(
     75,
     window.innerWidth / window.innerHeight,
@@ -33,21 +68,20 @@ const camera = new THREE.PerspectiveCamera(
 
 camera.position.set(0, 8, 30);
 
-// Renderer
 const renderer = new THREE.WebGLRenderer({
     canvas: document.querySelector('#bg'),
-    antialias: true
+    antialias: true,
+    alpha: true
 });
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-// =========================
-// EARTH
-// =========================
+/* ========================================
+   EARTH
+   ======================================== */
 
 const earthGeometry = new THREE.SphereGeometry(10, 64, 64);
 
@@ -74,13 +108,12 @@ const oceanMaterial = new THREE.MeshStandardMaterial({
 const ocean = new THREE.Mesh(oceanGeometry, oceanMaterial);
 scene.add(ocean);
 
-// =========================
-// CHARACTER
-// =========================
+/* ========================================
+   CHARACTER
+   ======================================== */
 
 const character = new THREE.Group();
 
-// Materials
 const whiteMaterial = new THREE.MeshStandardMaterial({
     color: 0xffffff,
     roughness: 0.4,
@@ -119,7 +152,6 @@ const body = new THREE.Mesh(
 
 body.castShadow = true;
 body.position.y = 0;
-
 character.add(body);
 
 // BODY LIGHT
@@ -130,7 +162,6 @@ const bodyLight = new THREE.Mesh(
 
 bodyLight.rotation.x = Math.PI / 2;
 bodyLight.position.set(0, -0.7, 1.05);
-
 character.add(bodyLight);
 
 // HEAD
@@ -142,7 +173,6 @@ const head = new THREE.Mesh(
 head.scale.y = 0.9;
 head.position.y = 2.9;
 head.castShadow = true;
-
 character.add(head);
 
 // VISOR
@@ -154,7 +184,6 @@ const visor = new THREE.Mesh(
 visor.scale.set(1, 0.7, 0.4);
 visor.rotation.z = Math.PI;
 visor.position.set(0, 2.8, 1.1);
-
 character.add(visor);
 
 // EYES
@@ -164,7 +193,6 @@ const leftEye = new THREE.Mesh(
 );
 
 leftEye.position.set(-0.3, 2.9, 1.45);
-
 character.add(leftEye);
 
 const rightEye = new THREE.Mesh(
@@ -173,7 +201,6 @@ const rightEye = new THREE.Mesh(
 );
 
 rightEye.position.set(0.3, 2.9, 1.45);
-
 character.add(rightEye);
 
 // SMILE
@@ -184,7 +211,6 @@ const smile = new THREE.Mesh(
 
 smile.rotation.z = Math.PI;
 smile.position.set(0, 2.6, 1.42);
-
 character.add(smile);
 
 // TOP PANEL
@@ -194,7 +220,6 @@ const topPanel = new THREE.Mesh(
 );
 
 topPanel.position.set(0, 4.15, 0);
-
 character.add(topPanel);
 
 // LEFT ARM
@@ -204,7 +229,6 @@ const leftShoulder = new THREE.Mesh(
 );
 
 leftShoulder.position.set(-1.6, 0.8, 0);
-
 character.add(leftShoulder);
 
 const leftArm = new THREE.Mesh(
@@ -214,7 +238,6 @@ const leftArm = new THREE.Mesh(
 
 leftArm.rotation.z = Math.PI / 5;
 leftArm.position.set(-2.2, 0.3, 0);
-
 character.add(leftArm);
 
 // RIGHT ARM
@@ -224,7 +247,6 @@ const rightShoulder = new THREE.Mesh(
 );
 
 rightShoulder.position.set(1.6, 0.8, 0);
-
 character.add(rightShoulder);
 
 const rightArm = new THREE.Mesh(
@@ -234,7 +256,6 @@ const rightArm = new THREE.Mesh(
 
 rightArm.rotation.z = -Math.PI / 2.8;
 rightArm.position.set(2.15, 0.8, 0);
-
 character.add(rightArm);
 
 // LEGS
@@ -244,7 +265,6 @@ const leftLeg = new THREE.Mesh(
 );
 
 leftLeg.position.set(-0.55, -2.1, 0);
-
 character.add(leftLeg);
 
 const rightLeg = new THREE.Mesh(
@@ -253,7 +273,6 @@ const rightLeg = new THREE.Mesh(
 );
 
 rightLeg.position.set(0.55, -2.1, 0);
-
 character.add(rightLeg);
 
 // FEET
@@ -264,7 +283,6 @@ const leftFoot = new THREE.Mesh(
 
 leftFoot.scale.z = 1.5;
 leftFoot.position.set(-0.55, -3, 0.25);
-
 character.add(leftFoot);
 
 const rightFoot = new THREE.Mesh(
@@ -274,42 +292,34 @@ const rightFoot = new THREE.Mesh(
 
 rightFoot.scale.z = 1.5;
 rightFoot.position.set(0.55, -3, 0.25);
-
 character.add(rightFoot);
 
 character.scale.set(0.9, 0.9, 0.9);
-
 scene.add(character);
 
-// =========================
-// LIGHTING
-// =========================
+/* ========================================
+   LIGHTING
+   ======================================== */
 
 const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
 scene.add(ambientLight);
 
 const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
-
 directionalLight.position.set(10, 15, 10);
 directionalLight.castShadow = true;
-
 scene.add(directionalLight);
 
 const blueLight = new THREE.PointLight(0x3b82f6, 20, 100);
-
 blueLight.position.set(0, 20, 20);
-
 scene.add(blueLight);
 
 const orangeLight = new THREE.PointLight(0xff8800, 10, 50);
-
 orangeLight.position.set(0, -10, 10);
-
 scene.add(orangeLight);
 
-// =========================
-// STARS
-// =========================
+/* ========================================
+   STARS
+   ======================================== */
 
 const starGeometry = new THREE.BufferGeometry();
 const starVertices = [];
@@ -318,7 +328,6 @@ for (let i = 0; i < 10000; i++) {
     const x = (Math.random() - 0.5) * 2000;
     const y = (Math.random() - 0.5) * 2000;
     const z = (Math.random() - 0.5) * 2000;
-
     starVertices.push(x, y, z);
 }
 
@@ -333,31 +342,27 @@ const starMaterial = new THREE.PointsMaterial({
 });
 
 const stars = new THREE.Points(starGeometry, starMaterial);
-
 scene.add(stars);
 
-// =========================
-// CONTROLS
-// =========================
+/* ========================================
+   ORBIT CONTROLS
+   ======================================== */
 
 const orbitControls = new OrbitControls(camera, renderer.domElement);
-
 orbitControls.enableDamping = true;
 orbitControls.dampingFactor = 0.05;
-
 orbitControls.minDistance = 20;
 orbitControls.maxDistance = 50;
 
-// =========================
-// TYPEWRITER
-// =========================
+/* ========================================
+   TYPEWRITER EFFECT
+   ======================================== */
 
 function typeWriter(text, i) {
     if (i < text.length) {
         dialogueText.innerHTML =
             text.substring(0, i + 1) +
             '<span aria-hidden="true"></span>';
-
         setTimeout(() => typeWriter(text, i + 1), 40);
     } else {
         nextButton.disabled = false;
@@ -367,6 +372,7 @@ function typeWriter(text, i) {
 function showDialogue() {
     if (dialogueIndex < dialogue.length) {
         nextButton.disabled = true;
+        nextButton.textContent = dialogueIndex === dialogue.length - 1 ? 'Finish' : 'Next';
 
         let currentDialogue = dialogue[dialogueIndex];
 
@@ -383,29 +389,24 @@ function showDialogue() {
     }
 }
 
-// =========================
-// ANIMATION
-// =========================
+/* ========================================
+   ANIMATION LOOP
+   ======================================== */
 
 function animate() {
     requestAnimationFrame(animate);
 
     const time = Date.now() * 0.001;
-
-    // Orbit movement
     const radius = 14;
 
+    // Character orbital movement
     character.position.x = Math.cos(time * 0.6) * radius;
     character.position.z = Math.sin(time * 0.6) * radius;
-
-    // Floating
     character.position.y = Math.sin(time * 2) * 0.4;
 
     // Look at earth
     character.lookAt(earth.position);
     character.rotation.y += Math.PI / 2;
-
-    // Floating tilt
     character.rotation.z = Math.sin(time * 2) * 0.05;
 
     // Arm animation
@@ -420,74 +421,60 @@ function animate() {
     stars.rotation.y += 0.0002;
 
     orbitControls.update();
-
     renderer.render(scene, camera);
 }
 
-// =========================
-// RESIZE
-// =========================
+/* ========================================
+   WINDOW RESIZE HANDLER
+   ======================================== */
 
 function onWindowResize() {
-    camera.aspect =
-        window.innerWidth / window.innerHeight;
-
+    camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-
-    renderer.setSize(
-        window.innerWidth,
-        window.innerHeight
-    );
+    renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-window.addEventListener(
-    'resize',
-    onWindowResize,
-    false
-);
+window.addEventListener('resize', onWindowResize, false);
 
-// =========================
-// UI EVENTS
-// =========================
+/* ========================================
+   FORM SUBMISSION
+   ======================================== */
 
-enterButton.addEventListener('click', () => {
-    if (nameInput.value.trim() !== '') {
+nameForm.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-        userName = nameInput.value.trim();
+    const nameValue = nameInput.value.trim();
 
-        loadingOverlay.style.opacity = '0';
-
+    if (nameValue !== '') {
+        userName = nameValue;
+        dialogueIndex = 0;
+        nextButton.textContent = 'Next';
+        
+        // Show experience screen
+        showScreen(experienceScreen);
+        
+        // Small delay before starting dialogue
         setTimeout(() => {
-
-            loadingOverlay.classList.add('hidden');
-
             dialogueBox.classList.remove('hidden');
-
             showDialogue();
-
-        }, 1000);
-
+        }, 500);
     } else {
-
         alert('Please enter your name!');
-
+        nameInput.focus();
     }
 });
+
+/* ========================================
+   DIALOGUE NAVIGATION
+   ======================================== */
 
 nextButton.addEventListener('click', () => {
-
     dialogueIndex++;
-
     showDialogue();
-
-    if (dialogueIndex === dialogue.length - 1) {
-        nextButton.textContent = 'Finish';
-    }
-
 });
 
-// =========================
-// START
-// =========================
+/* ========================================
+   START ANIMATION
+   ======================================== */
 
 animate();
