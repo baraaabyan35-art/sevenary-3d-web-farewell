@@ -191,6 +191,7 @@ firebase deploy
 ## 👥 Authors
 
 - **Baraa Abyan** - [@baraaabyan35-art](https://github.com/baraaabyan35-art)
+- **Dhabith Z Tringgana** - [@RinggaDev](https://github.com/RinggaDev)
 - **Dedicated to Sevenary** 🎊
 
 ## 📄 License
