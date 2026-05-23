@@ -3,24 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graduation Celebration</title>
+    <title>Sevenary - Graduation Celebration</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="loading-overlay">
-        <div class="form-container">
-            <label for="nameInput">Enter Your Name</label>
-            <input type="text" id="nameInput" placeholder="Your Name">
-            <button id="enterButton">Enter</button>
+    <!-- Home Page Screen -->
+    <div id="home-screen" class="screen active">
+        <div class="home-container">
+            <div class="home-content">
+                <div class="hero-section">
+                    <h1 class="hero-title">Sevenary</h1>
+                    <p class="hero-subtitle">A Graduation Celebration</p>
+                </div>
+                
+                <div class="home-description">
+                    <p>Join us on a nostalgic journey through three beautiful years of memories, laughter, and unforgettable moments shared together.</p>
+                </div>
+
+                <div class="home-features">
+                    <div class="feature-item">
+                        <div class="feature-icon">🌍</div>
+                        <h3>Interactive 3D World</h3>
+                        <p>Explore a stunning animated environment</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">💬</div>
+                        <h3>Personal Messages</h3>
+                        <p>Receive heartfelt dialogue from your school companion</p>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-icon">✨</div>
+                        <h3>Memories Unlocked</h3>
+                        <p>Relive cherished moments and celebrate achievements</p>
+                    </div>
+                </div>
+
+                <button id="start-button" class="btn btn-primary btn-large">
+                    Start Your Journey
+                </button>
+            </div>
         </div>
     </div>
 
-    <canvas id="bg"></canvas>
+    <!-- Form Screen -->
+    <div id="form-screen" class="screen">
+        <div class="form-overlay"></div>
+        <div class="form-container">
+            <button id="back-button" class="btn-back">← Back</button>
+            <h2 class="form-title">Welcome, Graduate!</h2>
+            <p class="form-description">Please enter your name to begin your personalized journey</p>
+            
+            <form id="name-form" class="form-content">
+                <div class="form-group">
+                    <label for="nameInput">Your Name</label>
+                    <input 
+                        type="text" 
+                        id="nameInput" 
+                        placeholder="Enter your full name"
+                        required
+                    >
+                </div>
+                <button type="submit" id="enterButton" class="btn btn-primary btn-full">
+                    Enter Experience
+                </button>
+            </form>
+        </div>
+    </div>
 
-    <div id="dialogue-box" class="hidden">
-        <div class="speaker-badge">School Companion</div>
-        <p id="dialogue-text"></p>
-        <button id="next-button">Next</button>
+    <!-- Main Experience Screen -->
+    <div id="experience-screen" class="screen">
+        <canvas id="bg"></canvas>
+
+        <div id="dialogue-box" class="hidden">
+            <div class="speaker-badge">School Companion</div>
+            <p id="dialogue-text"></p>
+            <button id="next-button" class="btn btn-secondary">Next</button>
+        </div>
     </div>
 
     <script type="importmap">
