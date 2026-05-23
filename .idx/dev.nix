@@ -7,6 +7,8 @@
   packages = [
     pkgs.nodejs_22
     pkgs.python3
+    pkgs.python3Packages.pip
+    pkgs.pipx
   ];
   # Sets environment variables in the workspace
   env = {};
