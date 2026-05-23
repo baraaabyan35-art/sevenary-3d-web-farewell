@@ -210,7 +210,6 @@ Contributions are welcome! To contribute:
 
 ## 💬 Support
 
-https://idx.google.com/threejs-testing-72241851
 For issues, questions, or suggestions, please open an [issue](https://github.com/baraaabyan35-art/sevenary-3d-web-farewell/issues) on GitHub.
 
 ## 🌐 Live Demo
