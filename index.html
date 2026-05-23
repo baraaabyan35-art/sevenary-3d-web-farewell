@@ -1,14 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduation Celebration</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+    <div id="loading-overlay">
+        <div class="form-container">
+            <label for="nameInput">Enter Your Name</label>
+            <input type="text" id="nameInput" placeholder="Your Name">
+            <button id="enterButton">Enter</button>
+        </div>
+    </div>
+
+    <canvas id="bg"></canvas>
+
+    <div id="dialogue-box" class="hidden">
+        <div class="speaker-badge">School Companion</div>
+        <p id="dialogue-text"></p>
+        <button id="next-button">Next</button>
+    </div>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.158.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.158.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>
