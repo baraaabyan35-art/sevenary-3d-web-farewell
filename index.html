@@ -6,48 +6,48 @@
     <title>Sevenary - Graduation Celebration</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="home-page">
+
+    <header class="header">
+        <div class="logo">Sevenary</div>
+        <nav class="nav">
+            <a href="#home-screen">Home</a>
+            <a href="#form-screen">Start</a>
+        </nav>
+    </header>
+
     <!-- Home Page Screen -->
-    <div id="home-screen" class="screen active">
-        <div class="home-container">
-            <div class="home-content">
-                <div class="hero-section">
-                    <h1 class="hero-title">Sevenary</h1>
-                    <p class="hero-subtitle">A Graduation Celebration</p>
-                </div>
-                
-                <div class="home-description">
-                    <p>Join us on a nostalgic journey through three beautiful years of memories, laughter, and unforgettable moments shared together.</p>
-                </div>
+    <main id="home-screen" class="screen active">
+        <div class="hero-section">
+            <h1 class="hero-title">Sevenary</h1>
+            <p class="hero-subtitle">A Graduation Celebration</p>
+            <p class="hero-description">Join us on a nostalgic journey through three beautiful years of memories, laughter, and unforgettable moments shared together.</p>
+            <button id="start-button" class="btn btn-primary btn-large">
+                Start Your Journey
+            </button>
+        </div>
 
-                <div class="home-features">
-                    <div class="feature-item">
-                        <div class="feature-icon">🌍</div>
-                        <h3>Interactive 3D World</h3>
-                        <p>Explore a stunning animated environment</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">💬</div>
-                        <h3>Personal Messages</h3>
-                        <p>Receive heartfelt dialogue from your school companion</p>
-                    </div>
-                    <div class="feature-item">
-                        <div class="feature-icon">✨</div>
-                        <h3>Memories Unlocked</h3>
-                        <p>Relive cherished moments and celebrate achievements</p>
-                    </div>
-                </div>
-
-                <button id="start-button" class="btn btn-primary btn-large">
-                    Start Your Journey
-                </button>
+        <div class="features-section">
+            <div class="feature-item">
+                <div class="feature-icon">🌍</div>
+                <h3>Interactive 3D World</h3>
+                <p>Explore a stunning animated environment</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">💬</div>
+                <h3>Personal Messages</h3>
+                <p>Receive heartfelt dialogue from your school companion</p>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">✨</div>
+                <h3>Memories Unlocked</h3>
+                <p>Relive cherished moments and celebrate achievements</p>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Form Screen -->
     <div id="form-screen" class="screen">
-        <div class="form-overlay"></div>
         <div class="form-container">
             <button id="back-button" class="btn-back">← Back</button>
             <h2 class="form-title">Welcome, Graduate!</h2>
